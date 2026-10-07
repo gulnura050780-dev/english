@@ -1,0 +1,9 @@
+{
+  "name": "fluent-english-learning",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node serve.mjs"
+  }
+}

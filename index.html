@@ -10,7 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="supabase-config.js"></script>
   <script src="app.js" defer></script>
+  <script type="module" src="auth.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -26,12 +28,12 @@
       <div class="level-menu" id="sidebar-levels" aria-label="Choose your level"></div>
       <div class="sidebar-bottom">
         <div class="streak-card"><span class="streak-spark">✳</span><div><strong id="streak-count">0 lessons completed</strong><small>Little by little adds up.</small></div></div>
-        <div class="profile"><div class="avatar">Y</div><div><strong>Your learning space</strong><small>Saved on this device</small></div><span class="profile-dots">···</span></div>
+        <button class="profile" id="profile-button" type="button" aria-label="Open account settings"><div class="avatar" id="profile-avatar">Y</div><div class="profile-copy"><strong id="profile-name">Your learning space</strong><small id="profile-caption">Saved on this device</small></div><span class="profile-dots">···</span></button>
       </div>
     </aside>
 
     <main class="main-content">
-      <header class="topbar"><div class="breadcrumb">My learning <span>/</span> <b id="crumb-current">Overview</b></div><div class="topbar-right"><span class="save-note"><span class="save-dot"></span> Progress saved here</span><button class="icon-button" id="reset-progress" title="Reset local progress" aria-label="Reset local progress">↺</button></div></header>
+      <header class="topbar"><div class="breadcrumb">My learning <span>/</span> <b id="crumb-current">Overview</b></div><div class="topbar-right"><span class="save-note" id="sync-status"><span class="save-dot"></span> Progress saved on this device</span><button class="button button-dark account-button" id="account-button" type="button">Sign in</button><button class="icon-button" id="reset-progress" title="Reset progress" aria-label="Reset progress">↺</button></div></header>
 
       <section id="home-view" class="view active-view">
         <div class="welcome-row"><div><div class="eyebrow">YOUR LEARNING SPACE</div><h1>A little English,<br><em>a lot of progress.</em></h1><p class="intro">Build a steady habit with thoughtful lessons for all four skills.</p></div><div class="welcome-art" aria-hidden="true"><div class="art-sun"></div><div class="art-book">A<span>B</span></div><div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div><div class="art-caption">take your time</div></div></div>
@@ -43,16 +45,32 @@
 
         <div class="section-heading skill-heading"><div><div class="eyebrow">FOUR WAYS TO GROW</div><h2>Practice every skill</h2></div><button class="text-button" data-go="learn">See all lessons <span>→</span></button></div>
         <div class="skill-grid" id="skill-grid"></div>
-        <footer>Made for steady progress <span>✳</span> Your progress stays on this device.</footer>
+        <footer id="privacy-note">Made for steady progress <span>✳</span> Your progress stays on this device.</footer>
       </section>
 
       <section id="learn-view" class="view"><div class="eyebrow">YOUR LEARNING PATH</div><h1 class="page-title">Make room for <em>practice.</em></h1><p class="intro">Short lessons, useful language, and no rush.</p><div class="filter-row" id="skill-filters"></div><div class="lesson-list" id="lesson-list"></div></section>
-      <section id="progress-view" class="view"><div class="eyebrow">A MOMENT TO REFLECT</div><h1 class="page-title">Look how far <em>you’ve come.</em></h1><p class="intro">Every small step counts. Your progress is saved in this browser.</p><div id="progress-content"></div></section>
+      <section id="progress-view" class="view"><div class="eyebrow">A MOMENT TO REFLECT</div><h1 class="page-title">Look how far <em>you’ve come.</em></h1><p class="intro" id="progress-copy">Every small step counts. Your progress is saved in this browser.</p><div id="progress-content"></div></section>
     </main>
   </div>
 
   <dialog id="placement-dialog" class="modal"><form method="dialog"><button class="close-button" aria-label="Close">×</button></form><div id="placement-content"></div></dialog>
   <dialog id="lesson-dialog" class="modal lesson-modal"><form method="dialog"><button class="close-button" aria-label="Close">×</button></form><div id="lesson-content"></div></dialog>
+  <dialog id="account-dialog" class="modal account-modal" aria-labelledby="auth-title">
+    <form method="dialog"><button class="close-button" aria-label="Close">×</button></form>
+    <div class="eyebrow">YOUR FLUENT ACCOUNT</div>
+    <h2 id="auth-title">Keep your progress with you.</h2>
+    <p id="auth-copy">Create an account or sign in to sync your level, completed lessons, and quiz results across devices.</p>
+    <div class="auth-tabs" id="auth-tabs"><button type="button" class="active" data-auth-mode="signin">Sign in</button><button type="button" data-auth-mode="signup">Create account</button></div>
+    <p id="auth-message" class="auth-message" role="status" aria-live="polite"></p>
+    <form id="auth-form" class="auth-form">
+      <div id="email-group"><label for="auth-email">Email</label><input id="auth-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+      <div id="password-group"><label for="auth-password">Password</label><input id="auth-password" name="password" type="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"></div>
+      <button id="auth-submit" class="button button-dark auth-submit" type="submit">Sign in <span>→</span></button>
+    </form>
+    <button id="forgot-password" class="auth-link" type="button">Forgot your password?</button>
+    <button id="auth-signout" class="auth-link auth-signout" type="button" hidden>Sign out</button>
+    <p class="auth-footnote">Speaking transcripts stay on this device. Passwords are handled by Supabase when accounts are connected.</p>
+  </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
