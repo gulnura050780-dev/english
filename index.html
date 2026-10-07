@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f1">
+  <meta name="description" content="A calm, focused place to grow your English skills, one short lesson at a time.">
+  <title>Fluent — Your English, in progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Fluent home"><span class="brand-mark">f<span>.</span></span><span>fluent</span></a>
+      <div class="side-label">YOUR SPACE</div>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="home"><span class="nav-icon">⌂</span>Overview</button>
+        <button class="nav-item" data-view="learn"><span class="nav-icon">▤</span>Learn</button>
+        <button class="nav-item" data-view="progress"><span class="nav-icon">◷</span>My progress</button>
+      </nav>
+      <div class="side-label courses-label">YOUR LEVEL</div>
+      <div class="level-menu" id="sidebar-levels" aria-label="Choose your level"></div>
+      <div class="sidebar-bottom">
+        <div class="streak-card"><span class="streak-spark">✳</span><div><strong id="streak-count">0 lessons completed</strong><small>Little by little adds up.</small></div></div>
+        <div class="profile"><div class="avatar">Y</div><div><strong>Your learning space</strong><small>Saved on this device</small></div><span class="profile-dots">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div class="breadcrumb">My learning <span>/</span> <b id="crumb-current">Overview</b></div><div class="topbar-right"><span class="save-note"><span class="save-dot"></span> Progress saved here</span><button class="icon-button" id="reset-progress" title="Reset local progress" aria-label="Reset local progress">↺</button></div></header>
+
+      <section id="home-view" class="view active-view">
+        <div class="welcome-row"><div><div class="eyebrow">YOUR LEARNING SPACE</div><h1>A little English,<br><em>a lot of progress.</em></h1><p class="intro">Build a steady habit with thoughtful lessons for all four skills.</p></div><div class="welcome-art" aria-hidden="true"><div class="art-sun"></div><div class="art-book">A<span>B</span></div><div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div><div class="art-caption">take your time</div></div></div>
+
+        <div class="level-banner" id="level-banner"><div class="level-banner-icon">✦</div><div class="level-banner-copy"><strong id="level-banner-title">Find your starting point</strong><span id="level-banner-text">Take a quick placement check and we’ll suggest a level to begin.</span></div><button class="button button-dark" id="placement-button">Take placement check <span>→</span></button></div>
+
+        <div class="section-heading"><div><div class="eyebrow">YOUR LEARNING PATH</div><h2>Choose a level</h2></div><span class="section-note">A1 to B2 · grow at your own pace</span></div>
+        <div class="level-grid" id="level-grid"></div>
+
+        <div class="section-heading skill-heading"><div><div class="eyebrow">FOUR WAYS TO GROW</div><h2>Practice every skill</h2></div><button class="text-button" data-go="learn">See all lessons <span>→</span></button></div>
+        <div class="skill-grid" id="skill-grid"></div>
+        <footer>Made for steady progress <span>✳</span> Your progress stays on this device.</footer>
+      </section>
+
+      <section id="learn-view" class="view"><div class="eyebrow">YOUR LEARNING PATH</div><h1 class="page-title">Make room for <em>practice.</em></h1><p class="intro">Short lessons, useful language, and no rush.</p><div class="filter-row" id="skill-filters"></div><div class="lesson-list" id="lesson-list"></div></section>
+      <section id="progress-view" class="view"><div class="eyebrow">A MOMENT TO REFLECT</div><h1 class="page-title">Look how far <em>you’ve come.</em></h1><p class="intro">Every small step counts. Your progress is saved in this browser.</p><div id="progress-content"></div></section>
+    </main>
+  </div>
+
+  <dialog id="placement-dialog" class="modal"><form method="dialog"><button class="close-button" aria-label="Close">×</button></form><div id="placement-content"></div></dialog>
+  <dialog id="lesson-dialog" class="modal lesson-modal"><form method="dialog"><button class="close-button" aria-label="Close">×</button></form><div id="lesson-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
