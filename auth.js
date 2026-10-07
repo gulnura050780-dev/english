@@ -128,7 +128,7 @@ async function activateSession(user) {
   const cloud = data?.progress;
   const nextProgress = cloud
     ? { ...portableProgress(cloud), speakingAnswers: localAnswers }
-    : { ...portableProgress(local), speakingAnswers: localAnswers };
+    : { ...portableProgress(local), speakingAnswers: Object.keys(localAnswers).length ? localAnswers : local.speakingAnswers };
   window.fluentApp.setScope(`${storagePrefix}:user:${currentUser.id}`, nextProgress);
   if (!cloud) await syncProgress(nextProgress);
   else showStatus('Progress synced to your account', 'cloud');
